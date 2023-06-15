@@ -1,0 +1,113 @@
+﻿<Window x:Class="CoffeeCenter.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:CoffeeCenter.ViewModel"
+        xmlns:local="clr-namespace:CoffeeCenter.View"
+        mc:Ignorable="d"
+        Title="MainView"
+        WindowState="Maximized"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Visibility="Visible"
+        Opacity="1">
+    <Window.DataContext>
+        <vm:MainViewModel></vm:MainViewModel>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22*"></RowDefinition>
+            <RowDefinition Height="203*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    Background="#7C573D" 
+                    MouseLeftButtonDown="Drag">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Button Width="102" 
+                            Height="81"
+                            Command="{Binding BackToMain}"
+                            Visibility="{Binding IsWhyAdminVisibility}">
+                        <Image Source="../Resources/logo.png" 
+                               Width="93" 
+                               Height="80"/>
+                    </Button>
+                    <Button Style="{StaticResource justBtn}"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{Binding ToMap}"
+                            Visibility="{Binding IsCustomerVisibility}" RenderTransformOrigin="0.5,0.5" Width="123">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="1.077"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="0.282"/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                        <Image Source="../Resources/map.png" 
+                               Width="39" Height="47"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                    <Button Command="{Binding ToOrder}" Visibility="{Binding IsCustomerVisibility}" FontSize="36" Width="250">Замовити</Button>
+                    <Button Command="{Binding ToReservation}" Visibility="{Binding IsCustomerVisibility}" FontSize="36" Width="250">Резервування</Button>
+                    <Button Command="{Binding ToMenu}" Visibility="{Binding IsCustomerVisibility}" FontSize="36" Width="250">Меню</Button>
+                    <Button Command="{Binding ToOrdersPage}" Visibility="{Binding IsAdminVisibility}" FontSize="36" Width="250">Замовлення</Button>
+                    <Button Command="{Binding ToReservationsPage}" Visibility="{Binding IsAdminVisibility}" FontSize="36" Width="250">Резервування</Button>
+                </StackPanel>
+                <StackPanel Grid.Column="2" 
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <TextBlock Foreground="White"
+                               FontFamily="{StaticResource beerMoney}"
+                               FontSize="36" 
+                               VerticalAlignment="Center"
+                               Text="{Binding UserName}"></TextBlock>
+                    <Button Command="{Binding Login}"
+                            Padding="0"
+                            Margin="10 0 10 0" Height="60" Width="80" FontSize="36">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Padding="0">
+                                    <Image Source="../Resources/user.png" 
+                                           Width="80"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Padding="0"
+                            Margin="0 0 10 0"
+                            Command="{Binding Close}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                AncestorType={x:Type Window}}}" Height="38" Width="46">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Padding="0">
+                                    <Image Source="../Resources/close.png" 
+                                        Width="24"></Image>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <UserControl Grid.Row="1"
+                     Content="{Binding Control}"></UserControl>
+    </Grid>
+</Window>

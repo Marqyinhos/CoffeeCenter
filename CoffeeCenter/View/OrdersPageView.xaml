@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="CoffeeCenter.View.OrdersPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:CoffeeCenter.ViewModel"
+             xmlns:local="clr-namespace:CoffeeCenter.View"
+             mc:Ignorable="d" >
+    <UserControl.DataContext>
+        <vm:OrdersPageViewModel></vm:OrdersPageViewModel>
+    </UserControl.DataContext>
+    <StackPanel HorizontalAlignment="Center">
+        <ListView ItemsSource="{Binding Orders}"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="False"
+                  Height="600"
+                  Margin="0 40 10 0"
+                  HorizontalAlignment="Center">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel></StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="0 40">
+                        <TextBlock FontSize="36"
+                                   FontFamily="{StaticResource beerMoney}"
+                                   Text="{Binding OrderNumber}"></TextBlock>
+                        <TextBlock FontSize="36"
+                                   Foreground="#616161"
+                                   FontFamily="{StaticResource beerMoney}"
+                                   Text="{Binding TableNumber}"
+                                   Visibility="{Binding TableVisibility}"></TextBlock>
+                        <TextBlock FontSize="36"
+                                   FontFamily="{StaticResource beerMoney}"
+                                   Text="{Binding Status}"
+                                   Foreground="{Binding StatusBrush}"></TextBlock>
+                        <TextBlock FontSize="36"
+                                   FontFamily="{StaticResource beerMoney}"
+                                   Text="{Binding TotalPrice}"
+                                   Foreground="{Binding TotalPriceBrush}"></TextBlock>
+                        <TextBlock FontSize="36"
+                                   FontFamily="{StaticResource beerMoney}"
+                                   Text="{Binding Date}"
+                                   Foreground="{Binding DateBrush}"></TextBlock>
+                        <TextBlock FontSize="36"
+                                   FontFamily="{StaticResource beerMoney}"
+                                   Text="{Binding Address}"
+                                   Visibility="{Binding AddressVisibility}"></TextBlock>
+                        <TextBlock FontSize="36"
+                                   FontFamily="{StaticResource beerMoney}"
+                                   TextWrapping="Wrap"
+                                   
+                                   Text="{Binding ProductList}"
+                                   Foreground="#616161"></TextBlock>
+                        <Button Width="400" FontSize="36" Command="{Binding EditCommand}">Редагувати</Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Width="400" FontSize="36" Command="{Binding PrevPage}">Назад</Button>
+            <Button Width="400" FontSize="36" Command="{Binding NextPage}"
+                    Grid.Column="1">Вперед</Button>
+        </Grid>
+    </StackPanel>
+</UserControl>

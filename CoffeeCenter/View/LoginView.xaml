@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="CoffeeCenter.View.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:CoffeeCenter.ViewModel"
+             xmlns:local="clr-namespace:CoffeeCenter.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" 
+             d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:LoginViewModel></vm:LoginViewModel>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="22"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="0 10"></Setter>
+            <Setter Property="FontFamily" Value="{StaticResource beerMoney}"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Foreground="red"
+                   TextWrapping="Wrap"
+                   Width="400"
+                   FontSize="36"
+                   TextAlignment="Center"
+                   Visibility="{Binding ErrorVisibility}"
+                   Text="{Binding ErrorText}"
+                   Grid.Column="1"></TextBlock>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="1">
+            <StackPanel Visibility="{Binding IsPhoneLogin}">
+                <TextBlock Text="{Binding PhoneCode}" FontSize="36"></TextBlock>
+                <WrapPanel HorizontalAlignment="Center">
+                    <TextBox Width="400"
+                             FontSize="36"
+                             FontFamily="{StaticResource beerMoney}"
+                             Text="{Binding PhoneNumber}"></TextBox>
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel Visibility="{Binding IsLoginLogin}">
+
+                <TextBlock FontSize="36">Логін</TextBlock>
+                <WrapPanel HorizontalAlignment="Center">
+                    <TextBox Width="400"
+                             FontSize="36"
+                             FontFamily="{StaticResource beerMoney}"
+                             Text="{Binding Login}"></TextBox>
+                </WrapPanel>
+                <TextBlock FontSize="36">Пароль</TextBlock>
+                <WrapPanel HorizontalAlignment="Center">
+                    <PasswordBox Width="400"
+                                 Name="passwordBox"
+                                 FontSize="36"
+                                 FontFamily="{StaticResource beerMoney}"></PasswordBox>
+                </WrapPanel>
+            </StackPanel>
+
+            <Button Margin="0 20 0 0"
+                    Visibility="{Binding IsLoginLogin}"
+                    Command="{Binding ToRegistration}" Width="400" FontSize="36">Зареєструватися</Button>
+            <Button Content="{Binding EnterMode}"
+                    Margin="0 20 0 0"
+                    Command="{Binding Enter}"
+                    CommandParameter="{Binding ElementName=passwordBox}" FontSize="36" Width="400"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="CoffeeCenter.View.ReservationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CoffeeCenter.View"
+             xmlns:vm="clr-namespace:CoffeeCenter.ViewModel"
+             xmlns:ex="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             Background="White">
+    <UserControl.DataContext>
+        <vm:ReservationViewModel></vm:ReservationViewModel>
+    </UserControl.DataContext>
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock FontFamily="{StaticResource beerMoney}"
+                       FontSize="36"
+                       Width="400"
+                       Foreground="{Binding MessageForeground}"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       Visibility="{Binding ErrorVisibility}"
+                       Text="{Binding ErrorText}"></TextBlock>
+            <TextBlock FontFamily="{StaticResource beerMoney}"
+                       FontSize="36" Margin="0 0 0 40"
+                       TextAlignment="Center">Введіть ваші дані</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="0 0 20 20">
+                    <TextBlock FontFamily="{StaticResource beerMoney}"
+                               TextAlignment="Center"
+                               FontSize="36">Ім'я</TextBlock>
+                    <TextBox FontSize="36" Width="300"
+                             Text="{Binding UserName}"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1"
+                            Margin="20 0 0 20">
+                    <TextBlock FontFamily="{StaticResource beerMoney}"
+                               FontSize="36"
+                               TextAlignment="Center">Номер телефону</TextBlock>
+                    <TextBox FontSize="36" Width="300"
+                             Text="{Binding PhoneNumber}"></TextBox>
+                </StackPanel>
+            </Grid>
+            <TextBlock FontFamily="{StaticResource beerMoney}"
+                       TextAlignment="Center"
+                       FontSize="36">Виберіть дату та час</TextBlock>
+            <ex:DateTimePicker  FontSize="28" Margin="0 10 0 10"
+                               Value="{Binding CurrentDate}"
+                               Minimum="{Binding TodayDate}"></ex:DateTimePicker>
+            <Grid Margin="0 20 0 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontFamily="{StaticResource beerMoney}"
+                           FontSize="36"
+                           Margin="0 0 20 0">Кількість сидінь:</TextBlock>
+                <ComboBox Grid.Column="1" Width="40" FontSize="26"
+                          ItemsSource="{Binding NumberOfSeats}"
+                          SelectedItem="{Binding SelectedSeat}"></ComboBox>
+            </Grid>
+            <Button Margin="0 40" FontSize="36" Width="400" Command="{Binding Reservation}">Зарезервувати</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

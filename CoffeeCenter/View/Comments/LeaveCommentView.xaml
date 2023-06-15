@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="CoffeeCenter.View.Comments.LeaveComment"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:CoffeeCenter.ViewModel"
+             xmlns:ui="http://www.aptof.com/"
+             xmlns:local="clr-namespace:CoffeeCenter.View.Comments"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:LeaveCommentViewModel></vm:LeaveCommentViewModel>
+    </UserControl.DataContext>
+    <Grid>
+        <StackPanel>
+            <TextBlock Foreground="Red"
+                       FontSize="36px"
+                       HorizontalAlignment="Center"
+                       FontFamily="{StaticResource beerMoney}"
+                       Margin="0 10 0 0"
+                       Visibility="{Binding ErrorVisibility}">Необхідно увійти або зареєструватися</TextBlock>
+            <ListView HorizontalAlignment="Center"
+                      BorderThickness="0"
+                      BorderBrush="Transparent"
+                      ItemsSource="{Binding StarList}"
+                      SelectedIndex="{Binding SelectedStarIndex}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding ImageSource}"                               
+                               Height="40" 
+                               Width="40"
+                               Margin="10 0"></Image>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <TextBlock Foreground="Black"
+                       FontSize="36px"
+                       HorizontalAlignment="Center"
+                       FontFamily="{StaticResource beerMoney}"
+                       Margin="0 10">Відгук</TextBlock>
+            <TextBox Margin="20 0 20 10"
+                     Height="220"
+                     FontSize="36"
+                     Text="{Binding Comment}"></TextBox>
+            
+            <WrapPanel HorizontalAlignment="Center">
+                <Button Command="{Binding SaveComment}"
+                        IsEnabled="{Binding IsLogedIn}" Width="400" FontSize="36">Зберегти</Button>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
